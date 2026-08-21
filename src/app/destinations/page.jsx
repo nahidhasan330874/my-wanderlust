@@ -1,16 +1,17 @@
- import React from "react";
+ import Link from "next/link";
+import React from "react";
 
 const DestinationPage = async () => {
   let destinations = [];
 
   try {
-    const res = await fetch("http://localhost:5000/destination", {
+    const res = await fetch("http://localhost:5000/destinations", {
       cache: "no-store",
     });
 
-    if (!res.ok) {
-      throw new Error("Failed to fetch destinations");
-    }
+    // if (!res.ok) {
+    //   throw new Error("Failed to fetch destinations");
+    // }
 
     destinations = await res.json();
   } catch (error) {
@@ -156,11 +157,13 @@ const DestinationPage = async () => {
                   </div>
 
                   {/* Button */}
+                 <Link href={`/destinations/${destination._id || destination.id || index}`}>
                   <button
                     className="mt-5 w-full rounded-xl bg-[#14A1BF] px-4 py-3 font-semibold text-white transition duration-300 hover:bg-[#118da8] hover:shadow-lg"
                   >
                     View Details →
                   </button>
+                 </Link>
                 </div>
               </div>
             ))}

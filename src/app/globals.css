@@ -1,3 +1,10 @@
 @import "tailwindcss";
 @import "@heroui/styles"; 
  
+@theme {
+  --font-josefin-sans: var(--font-josefin-sans);
+}
+
+body {
+  font-family: var(--font-josefin-sans), sans-serif;
+}
