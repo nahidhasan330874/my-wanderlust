@@ -1,3 +1,9 @@
+ const dns = require("dns");
+dns.setServers([
+  "8.8.8.8",
+  "1.1.1.1",
+]);
+
 import { Josefin_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";

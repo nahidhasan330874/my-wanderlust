@@ -1,6 +1,6 @@
  "use client";
-
-import { Envelope, Lock, Person } from "@gravity-ui/icons";
+import { authClient } from "@/lib/auth-client";
+ 
 import {
   Button,
   Description,
@@ -10,14 +10,38 @@ import {
   Label,
   TextField,
 } from "@heroui/react";
+import { redirect } from "next/navigation";
 
-export default function SignUpPage() {
+export default function LogInPage() { 
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget)
+    const user = Object.fromEntries(formData.entries())
+   console.log(user)
+   const { data , error } = await authClient.signIn.email({
+    email: user.email,
+    password: user.password,
+  
+   })
+  
+   console.log({data,error})
+
+   if (data) {
+    redirect("/");
+   }
+
+   if (error) {
+    
+    alert("Error")
+   }
+
+  }
   return (
     <div className="min-h-screen bg-[#f8fafc] px-4 py-8">
       {/* Header */}
       <div className="mx-auto max-w-md text-center">
         <h1 className="text-[28px] font-medium tracking-tight text-gray-900">
-          Create Account
+         Login Account
         </h1>
 
         <p className="mt-1 text-sm text-gray-500">
@@ -25,46 +49,13 @@ export default function SignUpPage() {
         </p>
 
         {/* Pink underline */}
-        <div className="mx-auto mt-2 h-0.5 w-4 bg-pink-500" />
+        <div className="mx-auto mt-2 h-0.5 w-4 bg-pink-500" /> 
       </div>
 
       {/* Card */}
       <div className="mx-auto mt-2 w-full max-w-md border border-gray-200 bg-white px-6 py-6 shadow-sm">
-        <Form className="flex w-full flex-col gap-4">
-          {/* Full Name */}
-          <TextField
-            isRequired
-            name="name"
-            className="w-full"
-          >
-            <Label className="mb-1.5 text-xs font-medium text-gray-900">
-              Image URL
-            </Label>
-
-            <Input
-              placeholder="Image URL"
-              className="h-9 w-full rounded-none border border-gray-200 bg-[#f8fafc] px-3 text-xs"
-            />
-
-            <FieldError />
-          </TextField>
-          <TextField
-            isRequired
-            name="name"
-            className="w-full"
-          >
-            <Label className="mb-1.5 text-xs font-medium text-gray-900">
-              Full Name
-            </Label>
-
-            <Input
-              placeholder="Enter your name"
-              className="h-9 w-full rounded-none border border-gray-200 bg-[#f8fafc] px-3 text-xs"
-            />
-
-            <FieldError />
-          </TextField>
-
+        <Form onSubmit={onSubmit} className="flex w-full flex-col gap-4">
+            
           {/* Email */}
           <TextField
             isRequired
@@ -142,12 +133,12 @@ export default function SignUpPage() {
           </TextField>
        
 
-          {/* Create Account */}
+ 
           <Button
             type="submit"
             className="mt-1 h-9 w-full rounded-none bg-[#18a7c2] text-xs font-medium text-white hover:bg-[#1295ae]"
           >
-            Create Account
+            Login Account
           </Button>
 
           {/* Divider */}
@@ -155,7 +146,7 @@ export default function SignUpPage() {
             <div className="h-px flex-1 bg-gray-200" />
 
             <span className="text-[11px] text-gray-500">
-              Or sign up with
+              Or login with
             </span>
 
             <div className="h-px flex-1 bg-gray-200" />
@@ -170,7 +161,7 @@ export default function SignUpPage() {
             <span className="mr-1 text-sm font-bold text-[#4285F4]">
               G
             </span>
-            Sign Up With Google
+            Login With Google
           </Button>
         </Form>
 
@@ -178,10 +169,10 @@ export default function SignUpPage() {
         <p className="mt-4 text-center text-[11px] text-gray-500">
           Already have an account?{" "}
           <a
-            href="/login"
+            href="/signup"
             className="font-medium text-[#18a7c2] hover:underline"
           >
-            Sign In
+            Sing Up
           </a>
         </p>
       </div>
