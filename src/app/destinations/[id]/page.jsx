@@ -1,7 +1,11 @@
+ 
+
+import BookingCard from "@/components/BookingCard";
 import { DeleteForm } from "@/components/DeleteFrom";
 import { EditForm } from "@/components/EditFrom";
 
 import Link from "next/link";
+import { FaStar } from "react-icons/fa";
 
 const DestinationDetailsPage = async ({ params }) => {
   const { id } = await params;
@@ -16,8 +20,8 @@ const DestinationDetailsPage = async ({ params }) => {
     country,
     category,
     departureDate,
-    price,
-    rating,
+    
+    
   } = destinations;
 
   return (
@@ -95,7 +99,7 @@ const DestinationDetailsPage = async ({ params }) => {
                   <p className="text-sm text-slate-400">Country</p>
 
                   <p className="mt-2 text-lg font-semibold text-slate-800">
-                    🌍 {country || "N/A"}
+                     {country || "N/A"}
                   </p>
                 </div>
 
@@ -104,7 +108,7 @@ const DestinationDetailsPage = async ({ params }) => {
                   <p className="text-sm text-slate-400">Category</p>
 
                   <p className="mt-2 text-lg font-semibold text-slate-800">
-                    🏷️ {category || "N/A"}
+                     {category || "N/A"}
                   </p>
                 </div>
 
@@ -113,7 +117,7 @@ const DestinationDetailsPage = async ({ params }) => {
                   <p className="text-sm text-slate-400">Duration</p>
 
                   <p className="mt-2 text-lg font-semibold text-slate-800">
-                    🕐
+                    
                     {duration ? `${duration} days` : "N/A"}
                   </p>
                 </div>
@@ -123,7 +127,7 @@ const DestinationDetailsPage = async ({ params }) => {
                   <p className="text-sm text-slate-400">Departure Date</p>
 
                   <p className="mt-2 text-lg font-semibold text-slate-800">
-                    📅 {departureDate || "N/A"}
+                     {departureDate || "N/A"}
                   </p>
                 </div>
               </div>
@@ -137,7 +141,7 @@ const DestinationDetailsPage = async ({ params }) => {
 
               <div className="grid gap-4 sm:grid-cols-3">
                 <div className="rounded-2xl bg-[#14A1BF]/10 p-5">
-                  <div className="mb-3 text-3xl">🌄</div>
+                   
 
                   <h3 className="font-bold text-slate-900">Beautiful Views</h3>
 
@@ -147,7 +151,7 @@ const DestinationDetailsPage = async ({ params }) => {
                 </div>
 
                 <div className="rounded-2xl bg-[#14A1BF]/10 p-5">
-                  <div className="mb-3 text-3xl">🧳</div>
+                 
 
                   <h3 className="font-bold text-slate-900">Great Experience</h3>
 
@@ -157,7 +161,7 @@ const DestinationDetailsPage = async ({ params }) => {
                 </div>
 
                 <div className="rounded-2xl bg-[#14A1BF]/10 p-5">
-                  <div className="mb-3 text-3xl">❤️</div>
+                  
 
                   <h3 className="font-bold text-slate-900">Memorable Trip</h3>
 
@@ -171,62 +175,13 @@ const DestinationDetailsPage = async ({ params }) => {
 
           {/* Right Booking Card */}
           <div className="lg:col-span-1">
-            <div className="sticky top-6 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl">
-              {/* Price Header */}
-              <div className="bg-[#14A1BF] p-6 text-white">
-                <p className="text-sm text-white/80">Starting from</p>
+           <div className="sticky top-6 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl">
+             <BookingCard  destinations={destinations}/>
+           </div>
+           </div>
+          
+            
 
-                <div className="mt-1 flex items-end gap-2">
-                  <span className="text-4xl font-extrabold">
-                    ${price ?? "N/A"}
-                  </span>
-
-                  <span className="mb-1 text-sm text-white/80">/ person</span>
-                </div>
-              </div>
-
-              {/* Card Body */}
-              <div className="p-6">
-                {/* Rating */}
-                <div className="flex items-center justify-between border-b border-slate-200 pb-5">
-                  <span className="text-sm text-slate-500">
-                    Customer Rating
-                  </span>
-
-                  <span className="font-semibold text-yellow-500">
-                    ⭐ {rating ?? "N/A"}
-                  </span>
-                </div>
-
-                {/* Duration */}
-                <div className="flex items-center justify-between border-b border-slate-200 py-5">
-                  <span className="text-sm text-slate-500">Trip Duration</span>
-
-                  <span className="font-semibold text-slate-800">
-                    {duration ? `${duration} Days` : "N/A"}
-                  </span>
-                </div>
-
-                {/* Departure */}
-                <div className="flex items-center justify-between border-b border-slate-200 py-5">
-                  <span className="text-sm text-slate-500">Departure</span>
-
-                  <span className="font-semibold text-slate-800">
-                    {departureDate || "N/A"}
-                  </span>
-                </div>
-
-                {/* Button */}
-                <button className="mt-6 w-full rounded-2xl bg-[#14A1BF] px-5 py-4 font-bold text-white transition duration-300 hover:bg-[#118da8] hover:shadow-lg">
-                  Book This Trip →
-                </button>
-
-                <p className="mt-4 text-center text-xs leading-5 text-slate-400">
-                  Secure your spot and start planning your next adventure.
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 

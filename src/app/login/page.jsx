@@ -11,6 +11,7 @@ import {
   TextField,
 } from "@heroui/react";
 import { redirect } from "next/navigation";
+import { FcGoogle } from "react-icons/fc";
 
 export default function LogInPage() { 
   const onSubmit = async (e) => {
@@ -36,6 +37,12 @@ export default function LogInPage() {
    }
 
   }
+
+   const handleGoogleSignIn = async () => {
+    await authClient.signIn.social({
+      provider: "google",
+    });
+  };
   return (
     <div className="min-h-screen bg-[#f8fafc] px-4 py-8">
       {/* Header */}
@@ -152,22 +159,25 @@ export default function LogInPage() {
             <div className="h-px flex-1 bg-gray-200" />
           </div>
 
-          {/* Google */}
+       
+        </Form>
+
+           {/* Google */}
           <Button
+          onClick={handleGoogleSignIn}
             type="button"
             variant="secondary"
-            className="h-9 w-full rounded-none border border-gray-200 bg-white text-xs font-medium text-gray-800 hover:bg-gray-50"
+            className="h-9 mt-3 w-full rounded-none border border-gray-200 bg-white text-xs font-medium text-gray-800 hover:bg-gray-50"
           >
             <span className="mr-1 text-sm font-bold text-[#4285F4]">
-              G
+              <FcGoogle/>
             </span>
             Login With Google
           </Button>
-        </Form>
 
         {/* Sign In */}
         <p className="mt-4 text-center text-[11px] text-gray-500">
-          Already have an account?{" "}
+        Create a new Account?
           <a
             href="/signup"
             className="font-medium text-[#18a7c2] hover:underline"

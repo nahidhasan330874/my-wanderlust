@@ -1,6 +1,6 @@
- "use client";
+"use client";
 import { authClient } from "@/lib/auth-client";
- 
+
 import {
   Button,
   Description,
@@ -11,32 +11,37 @@ import {
   TextField,
 } from "@heroui/react";
 import { redirect } from "next/navigation";
+import { FcGoogle } from "react-icons/fc";
 
-export default function SignUpPage() { 
+export default function SignUpPage() {
   const onSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget)
-    const user = Object.fromEntries(formData.entries())
-   console.log(user)
-   const { data , error } = await authClient.signUp.email({
-    email: user.email,
-    password: user.password,
-    name: user.name,
-    image: user.image
-   })
-  
-   console.log({data,error})
+    const formData = new FormData(e.currentTarget);
+    const user = Object.fromEntries(formData.entries());
+    console.log(user);
+    const { data, error } = await authClient.signUp.email({
+      email: user.email,
+      password: user.password,
+      name: user.name,
+      image: user.image,
+    });
 
-   if (data) {
-    redirect("/");
-   }
+    console.log({ data, error });
 
-   if (error) {
-    
-    alert("Error")
-   }
+    if (data) {
+      redirect("/");
+    }
 
-  }
+    if (error) {
+      alert("Error");
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    await authClient.signIn.social({
+      provider: "google",
+    });
+  };
   return (
     <div className="min-h-screen bg-[#f8fafc] px-4 py-8">
       {/* Header */}
@@ -50,18 +55,14 @@ export default function SignUpPage() {
         </p>
 
         {/* Pink underline */}
-        <div className="mx-auto mt-2 h-0.5 w-4 bg-pink-500" /> 
+        <div className="mx-auto mt-2 h-0.5 w-4 bg-pink-500" />
       </div>
 
       {/* Card */}
       <div className="mx-auto mt-2 w-full max-w-md border border-gray-200 bg-white px-6 py-6 shadow-sm">
         <Form onSubmit={onSubmit} className="flex w-full flex-col gap-4">
           {/* Full Name */}
-            <TextField
-            isRequired
-            name="name"
-            className="w-full"
-          >
+          <TextField isRequired name="name" className="w-full">
             <Label className="mb-1.5 text-xs font-medium text-gray-900">
               Full Name
             </Label>
@@ -75,12 +76,7 @@ export default function SignUpPage() {
           </TextField>
 
           {/*Image Url */}
-          <TextField
-            
-            name="image"
-            type="url"
-            className="w-full"
-          >
+          <TextField name="image" type="url" className="w-full">
             <Label className="mb-1.5 text-xs font-medium text-gray-900">
               Image URL
             </Label>
@@ -92,7 +88,6 @@ export default function SignUpPage() {
 
             <FieldError />
           </TextField>
-        
 
           {/* Email */}
           <TextField
@@ -106,9 +101,7 @@ export default function SignUpPage() {
                 return "Email is required";
               }
 
-              if (
-                !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)
-              ) {
+              if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
                 return "Please enter a valid email address";
               }
 
@@ -169,7 +162,6 @@ export default function SignUpPage() {
 
             <FieldError />
           </TextField>
-       
 
           {/* Create Account */}
           <Button
@@ -183,34 +175,33 @@ export default function SignUpPage() {
           <div className="flex items-center gap-3">
             <div className="h-px flex-1 bg-gray-200" />
 
-            <span className="text-[11px] text-gray-500">
-              Or sign up with
-            </span>
+            <span className="text-[11px] text-gray-500">Or sign up with</span>
 
             <div className="h-px flex-1 bg-gray-200" />
           </div>
-
-          {/* Google */}
-          <Button
-            type="button"
-            variant="secondary"
-            className="h-9 w-full rounded-none border border-gray-200 bg-white text-xs font-medium text-gray-800 hover:bg-gray-50"
-          >
-            <span className="mr-1 text-sm font-bold text-[#4285F4]">
-              G
-            </span>
-            Sign Up With Google
-          </Button>
         </Form>
+
+        {/* Google */}
+        <Button
+          onClick={handleGoogleSignIn}
+          type="button"
+          variant="secondary"
+          className="h-9 mt-3 w-full rounded-none border border-gray-200 bg-white text-xs font-medium text-gray-800 hover:bg-gray-50"
+        >
+          <span className="mr-1 text-sm font-bold text-[#4285F4]">
+            <FcGoogle />
+          </span>
+          Sign Up With Google
+        </Button>
 
         {/* Sign In */}
         <p className="mt-4 text-center text-[11px] text-gray-500">
-          Already have an account?{" "}
+          Already have an account?
           <a
             href="/login"
             className="font-medium text-[#18a7c2] hover:underline"
           >
-            Sign In
+            Log In
           </a>
         </p>
       </div>
