@@ -1,8 +1,7 @@
- 
-
 import BookingCard from "@/components/BookingCard";
 import { DeleteForm } from "@/components/DeleteFrom";
 import { EditForm } from "@/components/EditFrom";
+import Image from "next/image";
 
 import Link from "next/link";
 import { FaStar } from "react-icons/fa";
@@ -20,8 +19,6 @@ const DestinationDetailsPage = async ({ params }) => {
     country,
     category,
     departureDate,
-    
-    
   } = destinations;
 
   return (
@@ -29,10 +26,12 @@ const DestinationDetailsPage = async ({ params }) => {
       {/* Hero Image */}
       <section className="relative h-[420px] overflow-hidden md:h-[520px]">
         {imageUrl ? (
-          <img
+          <Image
             src={imageUrl}
             alt={destinationName || "Destination"}
-            className="h-full w-full object-cover"
+            fill
+            className="object-cover"
+            sizes="100vw"
           />
         ) : (
           <div className="flex h-full items-center justify-center bg-[#14A1BF]/10">
@@ -99,7 +98,7 @@ const DestinationDetailsPage = async ({ params }) => {
                   <p className="text-sm text-slate-400">Country</p>
 
                   <p className="mt-2 text-lg font-semibold text-slate-800">
-                     {country || "N/A"}
+                    {country || "N/A"}
                   </p>
                 </div>
 
@@ -108,7 +107,7 @@ const DestinationDetailsPage = async ({ params }) => {
                   <p className="text-sm text-slate-400">Category</p>
 
                   <p className="mt-2 text-lg font-semibold text-slate-800">
-                     {category || "N/A"}
+                    {category || "N/A"}
                   </p>
                 </div>
 
@@ -117,7 +116,6 @@ const DestinationDetailsPage = async ({ params }) => {
                   <p className="text-sm text-slate-400">Duration</p>
 
                   <p className="mt-2 text-lg font-semibold text-slate-800">
-                    
                     {duration ? `${duration} days` : "N/A"}
                   </p>
                 </div>
@@ -127,7 +125,7 @@ const DestinationDetailsPage = async ({ params }) => {
                   <p className="text-sm text-slate-400">Departure Date</p>
 
                   <p className="mt-2 text-lg font-semibold text-slate-800">
-                     {departureDate || "N/A"}
+                    {departureDate || "N/A"}
                   </p>
                 </div>
               </div>
@@ -141,8 +139,6 @@ const DestinationDetailsPage = async ({ params }) => {
 
               <div className="grid gap-4 sm:grid-cols-3">
                 <div className="rounded-2xl bg-[#14A1BF]/10 p-5">
-                   
-
                   <h3 className="font-bold text-slate-900">Beautiful Views</h3>
 
                   <p className="mt-2 text-sm leading-6 text-slate-500">
@@ -151,8 +147,6 @@ const DestinationDetailsPage = async ({ params }) => {
                 </div>
 
                 <div className="rounded-2xl bg-[#14A1BF]/10 p-5">
-                 
-
                   <h3 className="font-bold text-slate-900">Great Experience</h3>
 
                   <p className="mt-2 text-sm leading-6 text-slate-500">
@@ -161,8 +155,6 @@ const DestinationDetailsPage = async ({ params }) => {
                 </div>
 
                 <div className="rounded-2xl bg-[#14A1BF]/10 p-5">
-                  
-
                   <h3 className="font-bold text-slate-900">Memorable Trip</h3>
 
                   <p className="mt-2 text-sm leading-6 text-slate-500">
@@ -175,13 +167,10 @@ const DestinationDetailsPage = async ({ params }) => {
 
           {/* Right Booking Card */}
           <div className="lg:col-span-1">
-           <div className="sticky top-6 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl">
-             <BookingCard  destinations={destinations}/>
-           </div>
-           </div>
-          
-            
-
+            <div className="sticky top-6 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl">
+              <BookingCard destinations={destinations} />
+            </div>
+          </div>
         </div>
       </section>
 
